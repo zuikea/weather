@@ -23,7 +23,7 @@ jobs:
           python -m pip install --upgrade beautifulsoup4
 
       - name: 'Get Weather'
-        run: python main.py
+        run: python weather.py
       - name: 'Get Date'
         run: echo "REPORT_DATE=$(TZ=':Asia/Shanghai' date '+%Y-%m-%d %T')" >> $GITHUB_ENV
       - name: 'Send mail'
