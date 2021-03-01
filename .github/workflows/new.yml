@@ -17,8 +17,6 @@ jobs:
         with:
             python-version: '3.x'
             
-      - name: 'Install requirements'
-        run: pip install -r ./result.html
 
       - name: 'Get Weather'
         run: python weather.py
