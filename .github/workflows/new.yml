@@ -12,11 +12,10 @@ jobs:
       - name: 'Checkout codes'
         uses: actions/checkout@v1
         
-    runs-on: python
-     - name: 'Set python'
+      - name: 'Set python'
         uses: actions/setup-python@v1
         with:
-          python-version: '3.x'
+            python-version: '3.x'
 
       - name: 'Install dependencies'
         run: |
