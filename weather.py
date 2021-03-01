@@ -1,5 +1,4 @@
 import time
-import schedule
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import smtplib
