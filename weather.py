@@ -1,34 +1,25 @@
-#!/usr/bin/env python
-#coding=utf-8
-import urllib2
-from xml.etree import cElementTree as ET
-class GetWeather:
-    def __init__(self):
-        self.weather = self.makexml()
-    def makexml(self):
-        url = "http://weather.yahooapis.com/forecastrss?w=2151330&u=c"
-        res = urllib2.urlopen(url)
-        xmlfile = open("yahoo.xml",'w')
-        xmlfile.writelines(res.read())
-        xmlfile.close()
-        return self.xmlET()
-
-    def xmlET(self):
-        tree = ET.ElementTree(file="yahoo.xml")
-        forecast = []
-        for elem in tree.iter(tag="{http://xml.weather.yahoo.com/ns/rss/1.0}forecast"):
-            forecast.append(elem.attrib)
-        return self.msg(forecast)
-
-    def msg(self,forecast):
-        msg_data = ""
-        fmt = "\n%s              %s    %s   %s\n"%("日期","天气","最高温","最低温")
-        msg_data += fmt
-        for i in forecast:
-            msg_data += "%s        %s    %s    %s"%(i['date'],i['text'],i['high'],i['low'])
-            msg_data +="\n"
-        return msg_data
-
-if __name__ == "__main__":
-    w = GetWeather()
-    print w.weather
+import requests
+ 2 import time
+ 3 import schedule
+ 4 from selenium import webdriver
+ 5 from bs4 import BeautifulSoup
+ 6 import smtplib
+ 7 from email.mime.text import MIMEText
+ 8 from email.header import Header
+ 9 
+10 def requests_fun():
+11     res = requests.get('http://www.weather.com.cn/weather1d/101010100.shtml')
+12     res.encoding='utf-8'
+13     soup = BeautifulSoup(res.text,'html.parser')
+14     tianqi  = soup.find('input',id='hidden_title')['value']
+15     chuanyi = soup.find('li',id='chuanyi').find('p').text
+16     return (tianqi,chuanyi)
+17 
+18 def selenium_fun():
+19     driver = webdriver.Chrome()
+20     driver.get('http://www.weather.com.cn/weather1d/101010100.shtml')
+21     time.sleep(2)
+22     tianqi  = driver.find_element_by_id('hidden_title').get_attribute('value')
+23     chuanyi = driver.find_element_by_id('chuanyi').find_element_by_tag_name('p').text
+24     return str(tianqi,chuanyi)
+25     driver.close()
