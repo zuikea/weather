@@ -1,4 +1,3 @@
-import requests
 import time
 import schedule
 from selenium import webdriver
