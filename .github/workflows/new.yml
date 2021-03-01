@@ -16,17 +16,18 @@ jobs:
         uses: actions/setup-python@v1
         with:
             python-version: '3.x'
-
-      - name: 'Install dependencies'
-        run: |
-          python -m pip install --upgrade requests
-          python -m pip install --upgrade beautifulsoup4
+            
+      - name: 'Install requirements'
+        run: pip install -r ./result.html
 
       - name: 'Get Weather'
         run: python weather.py
       - name: 'Get Date'
         run: echo "REPORT_DATE=$(TZ=':Asia/Shanghai' date '+%Y-%m-%d %T')" >> $GITHUB_ENV
       - name: 'Send mail'
+      
+      
+      
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.qq.com
@@ -34,7 +35,32 @@ jobs:
           username: ${{ secrets.MAILUSERNAME }}
           password: ${{ secrets.MAILPASSWORD }}
           subject:  Weather Report (${{env.REPORT_DATE}})
-          body: file://result.html
+          body: file://result.html 
           to: ${{ secrets.USERNAME }}
           from: GitHub Actions
           content_type: text/html
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
